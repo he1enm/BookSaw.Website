@@ -4,7 +4,7 @@ interface BookCardProps {
   author: string;
   price: string;
   oldPrice?: string; // opțional
-  category?: string;
+  category?: string[];
 }
 
 export default function BookCard({

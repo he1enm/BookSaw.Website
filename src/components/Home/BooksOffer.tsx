@@ -95,24 +95,6 @@ export default function BooksOffer() {
           </Slider>
         </div>
       </div>
-
-      {/* Custom Tailwind for slick-dots */}
-      <style>{`
-        .slick-dots {
-          display: flex !important;
-          justify-content: center;
-          margin-top: 3rem;
-        }
-        .slick-dots li button:before {
-          font-size: 8px;
-          color: #b99272;
-          opacity: 0.5;
-        }
-        .slick-dots li.slick-active button:before {
-          opacity: 1;
-          color: #b99272;
-        }
-      `}</style>
     </section>
   );
 }

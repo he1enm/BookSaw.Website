@@ -9,11 +9,6 @@ const Footer = () => {
           {/* Logo & Description */}
           <div className="md:col-span-1">
             <img src={img1} alt="Logo" className="h-10 mb-4" />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis
-              sed ptibus libero lectus nonet psryroin. Amet sed lorem posuere
-              sit iaculis.
-            </p>
           </div>
 
           {/* About Us */}

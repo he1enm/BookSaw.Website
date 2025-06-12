@@ -26,28 +26,28 @@ export default function FeaturedBooks() {
             title="Simple Way Of Piece Life"
             author="Armor Ramsey"
             price="$ 40.00"
-            category="Business"
+            category={["Business"]}
           />
           <BookCard
             image={book2}
             title="Great Travel At Desert"
             author="Sanchit Howdy"
             price="$ 38.00"
-            category="Adventure"
+            category={["Adventure"]}
           />
           <BookCard
             image={book3}
             title="The Lady Beauty Scarlett"
             author="Arthur Doyle"
             price="$ 45.00"
-            category="Romantic"
+            category={["Romantic"]}
           />
           <BookCard
             image={book4}
             title="Once Upon A Time"
             author="Klien Marry"
             price="$ 35.00"
-            category="Fictional"
+            category={["Fictional"]}
           />
         </div>
 

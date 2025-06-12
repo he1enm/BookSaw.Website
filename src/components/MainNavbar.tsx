@@ -6,7 +6,7 @@ const MainNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-[#f3f2ec] border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-[#f3f2ec] border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4 py-6 flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex-shrink-0">
@@ -23,12 +23,12 @@ const MainNavbar = () => {
           <Link to="/about" className="cursor-pointer">
             About
           </Link>
-          <a href="#shop" className="cursor-pointer">
+          <Link to="/shop" className="cursor-pointer">
             Shop
-          </a>
-          <a href="#contact" className="cursor-pointer">
+          </Link>
+          <Link to="/contact" className="cursor-pointer">
             Contact
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile: Hamburger */}
@@ -73,12 +73,12 @@ const MainNavbar = () => {
           <Link to="/about" className="block">
             About
           </Link>
-          <a href="#shop" className="block">
+          <Link to="/shop" className="block">
             Shop
-          </a>
-          <a href="#contact" className="block">
+          </Link>
+          <Link to="/contact" className="block">
             Contact
-          </a>
+          </Link>
 
           {/* Search input */}
           <input
