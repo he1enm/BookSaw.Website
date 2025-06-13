@@ -10,62 +10,70 @@ import img6 from "../../assets/img/tab-item6.jpg";
 import img7 from "../../assets/img/tab-item7.jpg";
 import img8 from "../../assets/img/tab-item8.jpg";
 
-const books = [
+interface Book {
+  image: string;
+  title: string;
+  author: string;
+  price: string;
+  category: string[];
+}
+
+const books: Book[] = [
   {
     image: img1,
     title: "Portrait Photography",
     author: "Adam Silber",
     price: "$40.00",
-    category: "Business",
+    category: ["Business"],
   },
   {
     image: img2,
     title: "Once Upon a Time",
     author: "Klem Marry",
     price: "$35.00",
-    category: "Romantic",
+    category: ["Romantic"],
   },
   {
     image: img3,
     title: "Tips Of Simple Lifestyle",
     author: "Bratt Smith",
     price: "$40.00",
-    category: "Technology",
+    category: ["Technology"],
   },
   {
     image: img4,
     title: "Just Felt From Outside",
     author: "Nicole Wilson",
     price: "$40.00",
-    category: "Adventure",
+    category: ["Adventure"],
   },
   {
     image: img5,
     title: "Peaceful Enlightment",
     author: "Marmik Lama",
     price: "$40.00",
-    category: "Business",
+    category: ["Business"],
   },
   {
     image: img6,
     title: "Great travel at desert",
     author: "Sanchit Howdy",
     price: "$40.00",
-    category: "Technology",
+    category: ["Technology"],
   },
   {
     image: img7,
     title: "Life among the pirates",
     author: "Armor Ramsey",
     price: "$40.00",
-    category: "Romantic",
+    category: ["Romantic"],
   },
   {
     image: img8,
     title: "Simple way of piece life",
     author: "Armor Ramsey",
     price: "$40.00",
-    category: "Fictional",
+    category: ["Fictional"],
   },
 ];
 
@@ -84,7 +92,7 @@ export default function PopularBooks() {
   const filteredBooks =
     activeCategory === "All Genre"
       ? books
-      : books.filter((book) => book.category === activeCategory);
+      : books.filter((book) => book.category.includes(activeCategory));
 
   return (
     <section className="bg-[#f3f2ec] py-20 px-4 sm:px-10">
@@ -115,10 +123,11 @@ export default function PopularBooks() {
 
         {/* GRID DE CĂRȚI */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-          {filteredBooks.map((book, index) => (
+          {filteredBooks.map((book: Book, index: number) => (
             <BookCard key={index} {...book} />
           ))}
         </div>
+
         {/* QUOTE OF THE DAY */}
         <section
           id="quotation"
