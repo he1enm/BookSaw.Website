@@ -49,10 +49,10 @@ export default function BookDetails({
         <div className="flex items-center gap-6">
           {oldPrice && (
             <span className="text-lg text-gray-400 line-through">
-              {oldPrice} RON
+              {oldPrice} $
             </span>
           )}
-          <span className="text-3xl text-[#b99272] font-bold">{price} RON</span>
+          <span className="text-3xl text-[#b99272] font-bold">{price} $</span>
         </div>
 
         <p className="text-gray-700 leading-relaxed text-lg">{description}</p>

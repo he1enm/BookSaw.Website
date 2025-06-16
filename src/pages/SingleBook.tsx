@@ -1,22 +1,51 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import BookDetails from "../components/Single Book/BookDetails";
-// import RecommendedCarousel from "../components/Single Book/RecommendedCarousel";
-import img1 from "/src/assets/img/product-item1.jpg";
+import RecommendedCarousel from "../components/Single Book/RecommendedCarousel";
+import { ALL_BOOKS } from "../Constants/ALL_BOOKS";
 
-export default function Home() {
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  description: string;
+  categories: string[];
+  price: number;
+  oldPrice?: number;
+  inStock: boolean;
+  createdAt: string;
+  imageUrl: string;
+}
+
+export default function SingleBook() {
+  const { bookId } = useParams<{ bookId: string }>();
+  const [book, setBook] = useState<Book | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const foundBook = ALL_BOOKS.find((b) => b.id === bookId);
+    setBook(foundBook || null);
+    setLoading(false);
+  }, [bookId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (!book) return <p>Book not found</p>;
+
   return (
     <>
       <BookDetails
-        image={img1}
-        title="Birds Gonna Be Happy"
-        author="Marmik Lama"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet, libero ipsum enim pharetra hac. Urna commodo, lacus ut magna velit eleifend. Amet, quis urna, a eu."
-        price="59.99"
-        oldPrice="79.99"
-        category={["Buisness"]}
-        inStock={true}
+        image={book.imageUrl}
+        title={book.title}
+        author={book.author}
+        description={book.description}
+        price={book.price.toString()}
+        oldPrice={book.oldPrice?.toString()}
+        category={book.categories}
+        inStock={book.inStock}
       />
 
-      {/* Caruselul Recomandărilor */}
+      {/* Recomandările pe baza categoriilor */}
+      <RecommendedCarousel categories={book.categories} />
     </>
   );
 }

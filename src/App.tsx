@@ -5,8 +5,8 @@ import About from "./pages/About";
 import MainNavbar from "./components/MainNavbar";
 import Footer from "./components/Footer";
 import Contact from "./pages/Contact";
-import Shop from "./pages/Shop.tsx";
-import SingleBook from "./pages/SingleBook.tsx";
+import Shop from "./pages/Shop";
+import SingleBook from "./pages/SingleBook";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/shop/*" element={<Shop />} />
-        <Route path="/book" element={<SingleBook />} />
+        <Route path="/book/:bookId" element={<SingleBook />} />
       </Routes>
       <Footer />
     </>

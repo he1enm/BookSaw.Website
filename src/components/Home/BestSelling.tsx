@@ -54,7 +54,6 @@ export default function BestSelling() {
                   </div>
                 </div>
               </div>
-              {/* end col */}
             </div>
           </div>
         </div>
