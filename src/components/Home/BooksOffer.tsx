@@ -2,60 +2,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BookCard from "../BookCard";
-
-import img1 from "../../assets/img/product-item2.jpg";
-import img2 from "../../assets/img/product-item4.jpg";
-import img3 from "../../assets/img/product-item5.jpg";
-import img4 from "../../assets/img/product-item6.jpg";
-import img5 from "../../assets/img/product-item7.jpg";
-import img6 from "../../assets/img/product-item8.jpg";
-
-const discountedBooks = [
-  {
-    image: img1,
-    title: "The Creative Eye",
-    author: "Lisa Hart",
-    price: "$25.00",
-    oldPrice: "$40.00",
-  },
-  {
-    image: img2,
-    title: "Mindful Days",
-    author: "Paul Grant",
-    price: "$30.00",
-    oldPrice: "$50.00",
-  },
-  {
-    image: img3,
-    title: "Digital Dreams",
-    author: "Sophie Lee",
-    price: "$20.00",
-    oldPrice: "$35.00",
-  },
-  {
-    image: img4,
-    title: "The Silent Hour",
-    author: "George Miles",
-    price: "$28.00",
-    oldPrice: "$42.00",
-  },
-  {
-    image: img5,
-    title: "Winds of Wisdom",
-    author: "Anna Bright",
-    price: "$22.00",
-    oldPrice: "$38.00",
-  },
-  {
-    image: img6,
-    title: "Night Sky Chronicles",
-    author: "Tom Ryder",
-    price: "$27.00",
-    oldPrice: "$45.00",
-  },
-];
+import { ALL_BOOKS } from "../../Constants/ALL_BOOKS";
 
 export default function BooksOffer() {
+  const discountedBooks = ALL_BOOKS.filter((book) => book.oldPrice);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -87,8 +38,8 @@ export default function BooksOffer() {
         </h2>
         <div className="relative">
           <Slider {...settings}>
-            {discountedBooks.map((book, idx) => (
-              <div key={idx} className="px-3">
+            {discountedBooks.map((book) => (
+              <div key={book.id} className="px-3">
                 <BookCard {...book} />
               </div>
             ))}

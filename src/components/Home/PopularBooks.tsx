@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BookCard from "../BookCard";
-import { POPULAR_BOOKS } from "../../Constants/PopularBooks";
+import { ALL_BOOKS } from "../../Constants/ALL_BOOKS";
 import type { Book } from "../../Models/Book";
 
 const categories = [
@@ -12,6 +12,8 @@ const categories = [
   "Fictional",
 ];
 
+const POPULAR_BOOKS: Book[] = ALL_BOOKS.slice(0, 8);
+
 export default function PopularBooks() {
   const [activeCategory, setActiveCategory] = useState("All Genre");
 
@@ -19,7 +21,7 @@ export default function PopularBooks() {
     activeCategory === "All Genre"
       ? POPULAR_BOOKS
       : POPULAR_BOOKS.filter((book: Book) =>
-          book.category.includes(activeCategory)
+          book.categories.includes(activeCategory)
         );
 
   return (

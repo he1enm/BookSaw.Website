@@ -1,14 +1,18 @@
 interface BookCardProps {
-  image: string;
+  id: string;
   title: string;
   author: string;
-  price: string;
-  oldPrice?: string;
-  category?: string[];
+  description: string;
+  categories: string[];
+  price: number;
+  oldPrice?: number;
+  inStock: boolean;
+  createdAt: string;
+  imageUrl: string;
 }
 
 export default function BookCard({
-  image,
+  imageUrl,
   title,
   author,
   price,
@@ -19,7 +23,7 @@ export default function BookCard({
       {/* Container imagine + buton */}
       <div className="bg-[#efeee8] p-4 relative group">
         <img
-          src={image}
+          src={imageUrl}
           alt={title}
           className="mx-auto h-[300px] object-cover"
         />

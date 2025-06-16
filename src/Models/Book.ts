@@ -1,7 +1,12 @@
 export type Book = {
-  image: string;
+  id: string;
   title: string;
   author: string;
-  price: string;
-  category: string[];
+  description: string;
+  categories: string[];
+  price: number;
+  oldPrice?: number;
+  inStock: boolean;
+  createdAt: string;
+  imageUrl: string;
 };
