@@ -1,81 +1,7 @@
 import { useState } from "react";
 import BookCard from "../BookCard";
-
-import img1 from "../../assets/img/tab-item1.jpg";
-import img2 from "../../assets/img/tab-item2.jpg";
-import img3 from "../../assets/img/tab-item3.jpg";
-import img4 from "../../assets/img/tab-item4.jpg";
-import img5 from "../../assets/img/tab-item5.jpg";
-import img6 from "../../assets/img/tab-item6.jpg";
-import img7 from "../../assets/img/tab-item7.jpg";
-import img8 from "../../assets/img/tab-item8.jpg";
-
-interface Book {
-  image: string;
-  title: string;
-  author: string;
-  price: string;
-  category: string[];
-}
-
-const books: Book[] = [
-  {
-    image: img1,
-    title: "Portrait Photography",
-    author: "Adam Silber",
-    price: "$40.00",
-    category: ["Business"],
-  },
-  {
-    image: img2,
-    title: "Once Upon a Time",
-    author: "Klem Marry",
-    price: "$35.00",
-    category: ["Romantic"],
-  },
-  {
-    image: img3,
-    title: "Tips Of Simple Lifestyle",
-    author: "Bratt Smith",
-    price: "$40.00",
-    category: ["Technology"],
-  },
-  {
-    image: img4,
-    title: "Just Felt From Outside",
-    author: "Nicole Wilson",
-    price: "$40.00",
-    category: ["Adventure"],
-  },
-  {
-    image: img5,
-    title: "Peaceful Enlightment",
-    author: "Marmik Lama",
-    price: "$40.00",
-    category: ["Business"],
-  },
-  {
-    image: img6,
-    title: "Great travel at desert",
-    author: "Sanchit Howdy",
-    price: "$40.00",
-    category: ["Technology"],
-  },
-  {
-    image: img7,
-    title: "Life among the pirates",
-    author: "Armor Ramsey",
-    price: "$40.00",
-    category: ["Romantic"],
-  },
-  {
-    image: img8,
-    title: "Simple way of piece life",
-    author: "Armor Ramsey",
-    price: "$40.00",
-    category: ["Fictional"],
-  },
-];
+import { POPULAR_BOOKS } from "../../Constants/PopularBooks";
+import type { Book } from "../../Models/Book";
 
 const categories = [
   "All Genre",
@@ -91,8 +17,10 @@ export default function PopularBooks() {
 
   const filteredBooks =
     activeCategory === "All Genre"
-      ? books
-      : books.filter((book) => book.category.includes(activeCategory));
+      ? POPULAR_BOOKS
+      : POPULAR_BOOKS.filter((book: Book) =>
+          book.category.includes(activeCategory)
+        );
 
   return (
     <section className="bg-[#f3f2ec] py-20 px-4 sm:px-10">
@@ -127,30 +55,6 @@ export default function PopularBooks() {
             <BookCard key={index} {...book} />
           ))}
         </div>
-
-        {/* QUOTE OF THE DAY */}
-        <section
-          id="quotation"
-          className="text-center pt-16 pb-10 mt-16 border-t border-gray-200"
-        >
-          <div className="max-w-3xl mx-auto px-4">
-            <h2 className="text-2xl sm:text-3xl font-serif font-semibold mb-6 relative inline-block after:block after:w-16 after:h-[2px] after:bg-[#b99272] after:mx-auto after:mt-2">
-              Quote of the day
-            </h2>
-            <blockquote
-              className="text-xl sm:text-2xl italic text-gray-700"
-              data-aos="fade-up"
-            >
-              <q>
-                “The more that you read, the more things you will know. The more
-                that you learn, the more places you’ll go.”
-              </q>
-              <div className="mt-4 text-[#b99272] font-semibold text-lg">
-                Dr. Seuss
-              </div>
-            </blockquote>
-          </div>
-        </section>
       </div>
     </section>
   );
