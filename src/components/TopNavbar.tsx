@@ -13,7 +13,6 @@ const TopNavbar = () => {
     <div className="hidden sm:block bg-[#f3f2ec] border-b border-[#e0e0e0] py-6 text-sm">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center text-[#555555]">
-          {/* Social Links */}
           <div className="mb-2 md:mb-0">
             <ul className="flex space-x-4">
               <li>
@@ -39,7 +38,6 @@ const TopNavbar = () => {
             </ul>
           </div>
 
-          {/* Right Elements */}
           <div className="flex items-center space-x-6">
             <a
               href="#"
@@ -56,7 +54,6 @@ const TopNavbar = () => {
               <span>Cart: (0 $)</span>
             </a>
 
-            {/* Search */}
             <div className="relative">
               <button className="cursor-pointer text-[#555555] focus:outline-none">
                 <FaSearch />

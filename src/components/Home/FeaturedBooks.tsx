@@ -21,7 +21,7 @@ export default function FeaturedBooks() {
 
   return (
     <section className="bg-[#f3f2ec] py-16">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <p className="text-[#b99272] uppercase tracking-widest text-sm">
             Some quality items
@@ -31,7 +31,7 @@ export default function FeaturedBooks() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {featuredBooks.map((book) => (
             <BookCard key={book.id} {...book} />
           ))}

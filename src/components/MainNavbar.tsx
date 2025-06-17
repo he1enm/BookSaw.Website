@@ -8,14 +8,12 @@ const MainNavbar = () => {
   return (
     <header className="sticky top-0 z-50 bg-[#f3f2ec] border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4 py-6 flex items-center justify-between">
-        {/* Left: Logo */}
         <div className="flex-shrink-0">
           <Link to="/">
             <img src={img1} alt="Logo" className="h-8 w-auto" />
           </Link>
         </div>
 
-        {/* Desktop: Navigation links */}
         <nav className="hidden md:flex space-x-6 text-[#555555] font-medium text-sm uppercase">
           <Link to="/" className="cursor-pointer">
             Home
@@ -31,7 +29,6 @@ const MainNavbar = () => {
           </Link>
         </nav>
 
-        {/* Mobile: Hamburger */}
         <div className="md:hidden flex items-center h-full">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -64,7 +61,6 @@ const MainNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 pt-2 space-y-3 text-[#555555] font-medium text-sm uppercase">
           <Link to="/" className="block">
@@ -80,7 +76,6 @@ const MainNavbar = () => {
             Contact
           </Link>
 
-          {/* Search input */}
           <input
             type="search"
             placeholder="Search..."

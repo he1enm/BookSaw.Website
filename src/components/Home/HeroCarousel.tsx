@@ -38,7 +38,6 @@ export default function HeroCarousel() {
   return (
     <section className="bg-[#f3f2ec] min-h-screen flex items-center justify-center px-8 sm:px-32 lg:px-40 relative">
       <div className="max-w-7xl w-full flex flex-col-reverse md:flex-row items-center justify-between gap-6 md:gap-8">
-        {/* Left - Text */}
         <div className="flex-1 text-center md:text-left space-y-6">
           <h1 className="text-5xl sm:text-6xl font-serif font-semibold leading-tight">
             {title}
@@ -54,7 +53,6 @@ export default function HeroCarousel() {
           </div>
         </div>
 
-        {/* Right - Image */}
         <div className="flex-1 relative w-full max-w-sm mx-auto">
           <img
             src={image}
@@ -67,7 +65,6 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      {/* Navigation Arrows at Sides */}
       <button
         onClick={prevSlide}
         className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 border border-gray-400 bg-transparent rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-100 transition"

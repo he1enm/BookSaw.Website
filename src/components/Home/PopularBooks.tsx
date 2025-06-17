@@ -25,16 +25,15 @@ export default function PopularBooks() {
         );
 
   return (
-    <section className="bg-[#f3f2ec] py-20 px-4 sm:px-10">
+    <section className="bg-[#f3f2ec] py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">
-        <p className="text-sm text-gray-400 tracking-wide mb-2">
-          SOME QUALITY ITEMS
+        <p className="text-[#b99272] uppercase tracking-widest text-sm">
+          Some quality items
         </p>
-        <h2 className="text-4xl font-serif font-semibold mb-8">
+        <h2 className="text-5xl font-semibold text-[#3a3a3a] mt-2 mb-8">
           Popular Books
         </h2>
 
-        {/* CATEGORII */}
         <div className="flex flex-wrap justify-center gap-6 mb-12 text-sm font-semibold text-gray-600">
           {categories.map((cat) => (
             <button
@@ -51,8 +50,7 @@ export default function PopularBooks() {
           ))}
         </div>
 
-        {/* GRID DE CĂRȚI */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredBooks.map((book: Book, index: number) => (
             <BookCard key={index} {...book} />
           ))}

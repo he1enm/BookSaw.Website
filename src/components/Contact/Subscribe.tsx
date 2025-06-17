@@ -4,7 +4,6 @@ const Subscribe = () => {
   return (
     <div className="bg-[#edebe4] py-20 px-6">
       <div className="max-w-2xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
-        {/* Left Side - Title */}
         <div className="md:w-1/2">
           <h2 className="text-4xl font-serif text-gray-900 relative inline-block">
             Subscribe To Our Newsletter
@@ -12,7 +11,6 @@ const Subscribe = () => {
           </h2>
         </div>
 
-        {/* Right Side - Text & Form */}
         <div className="md:w-1/2 space-y-6">
           <p className="text-gray-700 leading-relaxed">
             Sed eu feugiat amet, libero ipsum enim pharetra hac dolor sit amet,

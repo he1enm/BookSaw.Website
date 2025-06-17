@@ -22,6 +22,17 @@ export default function RecommendedCarousel({
     slidesToShow: Math.min(4, recommendedBooks.length),
     slidesToScroll: 1,
     arrows: false,
+    appendDots: (dots: React.ReactNode) => {
+      const limitedDots = Array.isArray(dots) ? dots.slice(0, 5) : dots;
+      return (
+        <div style={{ marginTop: "24px" }}>
+          <ul className="flex justify-center gap-2">{limitedDots}</ul>
+        </div>
+      );
+    },
+    customPaging: () => (
+      <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50"></div>
+    ),
     responsive: [
       {
         breakpoint: 1280,
@@ -38,7 +49,6 @@ export default function RecommendedCarousel({
     ],
   };
 
-  // Dacă nu sunt recomandări, afișăm un mesaj
   if (recommendedBooks.length === 0) {
     return (
       <section className="py-20 bg-[#fdfcf7] px-4 sm:px-10">

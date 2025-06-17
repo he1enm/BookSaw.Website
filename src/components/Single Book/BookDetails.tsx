@@ -25,7 +25,6 @@ export default function BookDetails({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-lg">
-      {/* Book image container (now narrower) */}
       <div className="bg-[#efeee8] p-6 flex items-center justify-center rounded-lg shadow-md max-w-md mx-auto w-full">
         <img
           src={image}
@@ -35,7 +34,6 @@ export default function BookDetails({
         />
       </div>
 
-      {/* Book info */}
       <div className="flex flex-col justify-start space-y-5">
         {category && (
           <p className="text-sm text-[#b99272] uppercase tracking-wider font-semibold">
@@ -57,7 +55,6 @@ export default function BookDetails({
 
         <p className="text-gray-700 leading-relaxed text-lg">{description}</p>
 
-        {/* Stock indicator */}
         <div>
           {inStock ? (
             <span className="inline-block text-sm text-green-700 bg-green-100 px-3 py-1 rounded-full font-medium">
@@ -70,7 +67,6 @@ export default function BookDetails({
           )}
         </div>
 
-        {/* Quantity selector + button */}
         <div className="mt-4 flex items-center gap-6">
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden select-none shadow-sm">
             <button

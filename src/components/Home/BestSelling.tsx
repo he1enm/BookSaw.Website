@@ -11,7 +11,6 @@ export default function BestSelling() {
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
             <div className="flex flex-col md:flex-row">
-              {/* Imaginea */}
               <div className="md:w-1/2 flex justify-center">
                 <figure className="products-thumb">
                   <img
@@ -22,7 +21,6 @@ export default function BestSelling() {
                 </figure>
               </div>
 
-              {/* Textul */}
               <div className="md:w-1/2 mt-10 md:mt-0 md:pl-10 flex items-center">
                 <div className="product-entry">
                   <h2 className="text-4xl font-semibold text-[#222] border-b-2 border-[#b99272] inline-block mb-10">

@@ -27,11 +27,9 @@ export default function Filtres({
 
   return (
     <div className="container mx-auto px-4 py-6">
-      {/* Header Filters + săgeată pe mobil */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-[#3a3a3a]">Filters</h2>
 
-        {/* Săgeată pe mobil */}
         <button
           className="lg:hidden p-2 text-[#3a3a3a]"
           onClick={() => setShowFilters(!showFilters)}
@@ -42,11 +40,9 @@ export default function Filtres({
         </button>
       </div>
 
-      {/* Filtrele - arătate mereu pe desktop, condițional pe mobil */}
       {(showFilters ||
         (typeof window !== "undefined" && window.innerWidth >= 1024)) && (
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-          {/* Categoriile */}
           <div className="flex flex-wrap gap-2">
             {[
               "All",
@@ -70,7 +66,6 @@ export default function Filtres({
             ))}
           </div>
 
-          {/* Preț și sortare */}
           <div className="flex flex-wrap gap-2 items-center">
             <input
               type="number"

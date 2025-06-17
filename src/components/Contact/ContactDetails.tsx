@@ -2,7 +2,6 @@ const ContactDetails = () => {
   return (
     <div className="bg-[#edebe4] py-24 px-6">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-        {/* Text Content */}
         <div>
           <h2 className="text-4xl font-serif text-gray-900 mb-8">
             Get In Touch
@@ -51,7 +50,6 @@ const ContactDetails = () => {
           </div>
         </div>
 
-        {/* Map */}
         <div className="w-full h-[480px] shadow-lg rounded overflow-hidden">
           <iframe
             title="Google Maps"

@@ -4,7 +4,6 @@ const WhyUs = () => {
   return (
     <section className="w-full py-12 bg-[#edebe4]">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-center items-start gap-6">
-        {/* Text section */}
         <div className="w-full md:w-1/2 max-w-md text-center md:text-left">
           <h3 className="text-lg text-gray-600 mb-2 md:py-20">
             Nina Perry, Manager
@@ -21,7 +20,6 @@ const WhyUs = () => {
           </p>
         </div>
 
-        {/* Image section */}
         <div className="w-full md:w-1/2 flex justify-center">
           <img
             src={managerImg}

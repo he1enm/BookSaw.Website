@@ -44,7 +44,6 @@ export default function SingleBook() {
         inStock={book.inStock}
       />
 
-      {/* Recomandările pe baza categoriilor */}
       <RecommendedCarousel categories={book.categories} />
     </>
   );

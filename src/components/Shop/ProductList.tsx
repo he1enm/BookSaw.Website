@@ -38,7 +38,6 @@ export default function ProductList() {
 
   return (
     <div className="w-full pb-10">
-      {/* Filtres - Full Width */}
       <div className="w-full px-4">
         <Filtres
           category={category}
@@ -52,15 +51,13 @@ export default function ProductList() {
         />
       </div>
 
-      {/* Cards + Pagination - max-w-7xl */}
-      <div className="container max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {paginatedBooks.map((book) => (
             <BookCard key={book.id} {...book} />
           ))}
         </div>
 
-        {/* Pagination */}
         <div className="mt-10 flex justify-center gap-2">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button

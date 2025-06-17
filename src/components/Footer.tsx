@@ -6,12 +6,10 @@ const Footer = () => {
     <footer className="bg-[#f3f2ec] text-[#555555] text-sm pt-10">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 pb-10 border-b border-gray-300">
-          {/* Logo & Description */}
           <div className="md:col-span-1">
             <img src={img1} alt="Logo" className="h-10 mb-4" />
           </div>
 
-          {/* About Us */}
           <div>
             <h5 className="font-semibold mb-4 uppercase">About Us</h5>
             <ul className="space-y-2">
@@ -33,7 +31,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Discover */}
           <div>
             <h5 className="font-semibold mb-4 uppercase">Discover</h5>
             <ul className="space-y-2">
@@ -55,7 +52,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* My Account */}
           <div>
             <h5 className="font-semibold mb-4 uppercase">My Account</h5>
             <ul className="space-y-2">
@@ -74,7 +70,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Help */}
           <div>
             <h5 className="font-semibold mb-4 uppercase">Help</h5>
             <ul className="space-y-2">
@@ -94,7 +89,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center py-6 text-xs text-gray-500">
           <p>
             © 2022 All rights reserved. Free HTML Template by{" "}
