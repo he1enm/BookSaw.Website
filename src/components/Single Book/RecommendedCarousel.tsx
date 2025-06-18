@@ -2,7 +2,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BookCard from "../BookCard";
-import { ALL_BOOKS } from "../../Constants/ALL_BOOKS";
+import { UseBooks } from "../../Constants/UseBooks";
+import type { Book } from "../../Models/Book";
 
 interface RecommendedCarouselProps {
   categories: string[];
@@ -11,8 +12,10 @@ interface RecommendedCarouselProps {
 export default function RecommendedCarousel({
   categories,
 }: RecommendedCarouselProps) {
-  const recommendedBooks = ALL_BOOKS.filter((book) =>
-    book.categories.some((cat) => categories.includes(cat))
+  const { books, loading, error } = UseBooks();
+
+  const recommendedBooks = books.filter((book: Book) =>
+    book.categories.some((cat: string) => categories.includes(cat))
   );
 
   const settings = {
@@ -22,14 +25,11 @@ export default function RecommendedCarousel({
     slidesToShow: Math.min(4, recommendedBooks.length),
     slidesToScroll: 1,
     arrows: false,
-    appendDots: (dots: React.ReactNode) => {
-      const limitedDots = Array.isArray(dots) ? dots.slice(0, 5) : dots;
-      return (
-        <div style={{ marginTop: "24px" }}>
-          <ul className="flex justify-center gap-2">{limitedDots}</ul>
-        </div>
-      );
-    },
+    appendDots: (dots: React.ReactNode) => (
+      <div style={{ marginTop: "24px" }}>
+        <ul className="flex justify-center gap-2">{dots}</ul>
+      </div>
+    ),
     customPaging: () => (
       <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50"></div>
     ),
@@ -42,12 +42,12 @@ export default function RecommendedCarousel({
         breakpoint: 1024,
         settings: { slidesToShow: Math.min(2, recommendedBooks.length) },
       },
-      {
-        breakpoint: 640,
-        settings: { slidesToShow: 1 },
-      },
+      { breakpoint: 640, settings: { slidesToShow: 1 } },
     ],
   };
+
+  if (loading) return <p>Se încarcă recomandările...</p>;
+  if (error) return <p>{error}</p>;
 
   if (recommendedBooks.length === 0) {
     return (
@@ -70,7 +70,7 @@ export default function RecommendedCarousel({
         </h2>
         <div className="relative">
           <Slider {...settings}>
-            {recommendedBooks.map((book) => (
+            {recommendedBooks.map((book: Book) => (
               <div key={book.id} className="px-3">
                 <BookCard {...book} />
               </div>

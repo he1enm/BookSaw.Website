@@ -1,9 +1,12 @@
 import { useState } from "react";
 import BookCard from "../BookCard";
 import Filtres from "./Filters";
-import { ALL_BOOKS } from "../../Constants/ALL_BOOKS";
+import { UseBooks } from "../../Constants/UseBooks";
+import type { Book } from "../../Models/Book";
 
 export default function ProductList() {
+  const { books, loading, error } = UseBooks();
+
   const [category, setCategory] = useState("All");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -11,7 +14,10 @@ export default function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  const filteredBooks = ALL_BOOKS.filter((book) => {
+  if (loading) return <p>Se încarcă...</p>;
+  if (error) return <p>{error}</p>;
+
+  const filteredBooks = books.filter((book: Book) => {
     const price = book.price;
     const min = parseFloat(minPrice) || 0;
     const max = parseFloat(maxPrice) || Infinity;

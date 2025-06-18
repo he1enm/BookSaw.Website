@@ -1,8 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import BookCard from "../BookCard";
-import { ALL_BOOKS } from "../../Constants/ALL_BOOKS";
+import { UseBooks } from "../../Constants/UseBooks";
+import type { Book } from "../../Models/Book";
 
-function getRandomBooks(books: typeof ALL_BOOKS, count: number) {
+function getRandomBooks(books: Book[], count: number) {
   const booksCopy = [...books];
   const randomBooks = [];
 
@@ -17,7 +18,12 @@ function getRandomBooks(books: typeof ALL_BOOKS, count: number) {
 }
 
 export default function FeaturedBooks() {
-  const featuredBooks = getRandomBooks(ALL_BOOKS, 4);
+  const { books, loading, error } = UseBooks();
+
+  if (loading) return <p>Se încarcă...</p>;
+  if (error) return <p>{error}</p>;
+
+  const featuredBooks = getRandomBooks(books, 4);
 
   return (
     <section className="bg-[#f3f2ec] py-16">

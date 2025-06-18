@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BookCard from "../BookCard";
-import { ALL_BOOKS } from "../../Constants/ALL_BOOKS";
+import { UseBooks } from "../../Constants/UseBooks";
 import type { Book } from "../../Models/Book";
 
 const categories = [
@@ -12,15 +12,19 @@ const categories = [
   "Fictional",
 ];
 
-const POPULAR_BOOKS: Book[] = ALL_BOOKS.slice(0, 8);
-
 export default function PopularBooks() {
+  const { books, loading, error } = UseBooks();
   const [activeCategory, setActiveCategory] = useState("All Genre");
+
+  if (loading) return <p>Se încarcă...</p>;
+  if (error) return <p>{error}</p>;
+
+  const first8Books = books.slice(0, 8);
 
   const filteredBooks =
     activeCategory === "All Genre"
-      ? POPULAR_BOOKS
-      : POPULAR_BOOKS.filter((book: Book) =>
+      ? first8Books
+      : first8Books.filter((book: Book) =>
           book.categories.includes(activeCategory)
         );
 
@@ -51,8 +55,8 @@ export default function PopularBooks() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {filteredBooks.map((book: Book, index: number) => (
-            <BookCard key={index} {...book} />
+          {filteredBooks.map((book: Book) => (
+            <BookCard key={book.id} {...book} />
           ))}
         </div>
       </div>

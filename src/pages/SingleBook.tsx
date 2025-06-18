@@ -1,35 +1,25 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import BookDetails from "../components/Single Book/BookDetails";
 import RecommendedCarousel from "../components/Single Book/RecommendedCarousel";
-import { ALL_BOOKS } from "../Constants/ALL_BOOKS";
-
-interface Book {
-  id: string;
-  title: string;
-  author: string;
-  description: string;
-  categories: string[];
-  price: number;
-  oldPrice?: number;
-  inStock: boolean;
-  createdAt: string;
-  imageUrl: string;
-}
+import { UseBooks } from "../Constants/UseBooks";
+import type { Book } from "../Models/Book";
 
 export default function SingleBook() {
   const { bookId } = useParams<{ bookId: string }>();
+  const { books, loading, error } = UseBooks();
   const [book, setBook] = useState<Book | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const foundBook = ALL_BOOKS.find((b) => b.id === bookId);
-    setBook(foundBook || null);
-    setLoading(false);
-  }, [bookId]);
+    if (!loading && books.length > 0) {
+      const foundBook = books.find((b: Book) => b.id === bookId);
+      setBook(foundBook || null);
+    }
+  }, [bookId, books, loading]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!book) return <p>Book not found</p>;
+  if (loading) return <p className="text-center py-20">Loading...</p>;
+  if (error) return <p className="text-center text-red-500 py-20">{error}</p>;
+  if (!book) return <p className="text-center py-20">Book not found.</p>;
 
   return (
     <>

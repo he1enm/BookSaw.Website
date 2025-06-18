@@ -1,0 +1,50 @@
+name: booksaw
+
+services:
+  booksaw-db:
+    image: postgres:latest
+    container_name: booksaw-db
+    restart: always
+    environment:
+      POSTGRES_DB: BookSawDb
+      POSTGRES_USER: BookSaw
+      POSTGRES_PASSWORD: BookSaw123
+    volumes:
+      - booksaw-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - booksaw-network
+
+  booksaw-api:
+    image: ghcr.io/itsulik/booksaw.api:latest
+    container_name: booksaw-api
+    restart: always
+    ports:
+      - "5234:8080"
+    depends_on:
+      - booksaw-db
+    environment:
+      - TZ=Europe/Chisinau
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
+      - AllowedHosts=*
+      - Logging:LogLevel:Default=Warning
+      - Logging:LogLevel:Microsoft.Hosting.Lifetime=Information
+      - Logging:LogLevel:BookSaw.Api=Information
+      - Logging:LogLevel:BookSaw.Seeder=Debug
+      - ConnectionStrings__BookSawDb=Host=booksaw-db;Port=5432;Database=BookSawDb;Username=BookSaw;Password=BookSaw123
+    networks:
+      - booksaw-network
+    entrypoint:
+      - bash
+      - -c
+      - |
+        dotnet tools/BookSaw.Seeder.dll &&
+        dotnet BookSaw.Api.dll
+
+volumes:
+  booksaw-db-volume:
+
+networks:
+  booksaw-network:
