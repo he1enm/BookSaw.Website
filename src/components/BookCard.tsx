@@ -31,6 +31,10 @@ export default function BookCard({
             alt={title}
             className="w-full h-44 sm:h-52 md:h-[340px] lg:h-[380px] object-cover"
           />
+
+          {/* Dreptunghi semi-transparent în stânga */}
+          <div className="absolute top-0 bottom-0 left-0 w-4 bg-black/20 blur-sm pointer-events-none" />
+
           {/* Buton peste imagine – doar pe desktop */}
           <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto hidden sm:block">
             <button className="w-full bg-black text-white py-1.5 text-xs sm:text-sm font-medium rounded">
