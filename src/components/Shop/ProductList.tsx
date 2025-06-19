@@ -7,12 +7,13 @@ import type { Book } from "../../Models/Book";
 export default function ProductList() {
   const { books, loading, error } = useBooks();
 
-  const [category, setCategory] = useState("All");
+  // category este acum array de string-uri pentru selecție multiplă
+  const [category, setCategory] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 15;
 
   if (loading) return <p>Se încarcă...</p>;
   if (error) return <p>{error}</p>;
@@ -21,8 +22,11 @@ export default function ProductList() {
     const price = book.price;
     const min = parseFloat(minPrice) || 0;
     const max = parseFloat(maxPrice) || Infinity;
+
+    // dacă nu e nici o categorie selectată, acceptă toate cărțile
     const matchesCategory =
-      category === "All" || book.categories.includes(category);
+      category.length === 0 ||
+      category.some((cat) => book.categories.includes(cat));
     const matchesPrice = price >= min && price <= max;
     return matchesCategory && matchesPrice;
   });
@@ -58,7 +62,7 @@ export default function ProductList() {
       </div>
 
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-4 sm:gap-6">
           {paginatedBooks.map((book) => (
             <BookCard key={book.id} {...book} />
           ))}

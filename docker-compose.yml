@@ -1,6 +1,14 @@
 name: booksaw
 
 services:
+  booksaw-website:
+    build: .
+    container_name: booksaw-website
+    restart: always
+
+    networks:
+      - booksaw-network
+
   booksaw-db:
     image: postgres:latest
     container_name: booksaw-db

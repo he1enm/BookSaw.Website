@@ -3,8 +3,8 @@ import type { Dispatch, SetStateAction } from "react";
 import { HiChevronDown } from "react-icons/hi";
 
 type Props = {
-  category: string;
-  setCategory: Dispatch<SetStateAction<string>>;
+  category: string[]; // listă de categorii selectate
+  setCategory: Dispatch<SetStateAction<string[]>>;
   minPrice: string;
   setMinPrice: Dispatch<SetStateAction<string>>;
   maxPrice: string;
@@ -12,6 +12,21 @@ type Props = {
   sortBy: string;
   setSortBy: Dispatch<SetStateAction<string>>;
 };
+
+const categoriesList = [
+  "Drama",
+  "Contemporary",
+  "Poetry",
+  "Young Adult",
+  "Romance",
+  "Fantasy",
+  "Psychological",
+  "Adventure",
+  "Mystery",
+  "Thriller",
+  "Psychological Thriller",
+  "Fiction",
+];
 
 export default function Filtres({
   category,
@@ -24,6 +39,20 @@ export default function Filtres({
   setSortBy,
 }: Props) {
   const [showFilters, setShowFilters] = useState(false);
+
+  const toggleCategory = (cat: string) => {
+    if (cat === "All") {
+      setCategory([]);
+      return;
+    }
+    if (category.includes(cat)) {
+      setCategory(category.filter((c) => c !== cat));
+    } else {
+      setCategory([...category, cat]);
+    }
+  };
+
+  const isAllSelected = category.length === 0;
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -42,23 +71,27 @@ export default function Filtres({
 
       {(showFilters ||
         (typeof window !== "undefined" && window.innerWidth >= 1024)) && (
-        <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-          <div className="flex flex-wrap gap-2">
-            {[
-              "All",
-              "Business",
-              "Technology",
-              "Romantic",
-              "Adventure",
-              "Fictional",
-            ].map((cat) => (
+        <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
+          <div className="flex flex-wrap gap-4 max-w-full">
+            <button
+              onClick={() => setCategory([])}
+              className={`px-5 py-2 rounded-full border text-sm font-semibold transition-colors duration-200 ${
+                isAllSelected
+                  ? "bg-[#b99272] text-white border-[#b99272]"
+                  : "bg-white text-[#3a3a3a] border-gray-300 hover:bg-gray-100"
+              }`}
+            >
+              All
+            </button>
+
+            {categoriesList.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setCategory(cat)}
-                className={`px-4 py-2 rounded-full border text-sm ${
-                  category === cat
-                    ? "bg-[#b99272] text-white"
-                    : "bg-white text-[#3a3a3a]"
+                onClick={() => toggleCategory(cat)}
+                className={`px-5 py-2 rounded-full border text-sm font-semibold transition-colors duration-200 ${
+                  category.includes(cat)
+                    ? "bg-[#b99272] text-white border-[#b99272]"
+                    : "bg-white text-[#3a3a3a] border-gray-300 hover:bg-gray-100"
                 }`}
               >
                 {cat}
@@ -66,25 +99,25 @@ export default function Filtres({
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-wrap gap-4 items-center mt-4 lg:mt-0">
             <input
               type="number"
               placeholder="Min"
-              className="border px-3 py-1 rounded w-[100px]"
+              className="border px-4 py-2 rounded w-[110px] text-sm"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
             />
-            <span className="text-[#3a3a3a]">-</span>
+            <span className="text-[#3a3a3a] text-lg font-semibold">–</span>
             <input
               type="number"
               placeholder="Max"
-              className="border px-3 py-1 rounded w-[100px]"
+              className="border px-4 py-2 rounded w-[110px] text-sm"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
             />
 
             <select
-              className="border px-3 py-1 rounded text-[#3a3a3a] min-w-[150px]"
+              className="border px-4 py-2 rounded text-[#3a3a3a] min-w-[160px] text-sm"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >

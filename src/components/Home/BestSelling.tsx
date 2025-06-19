@@ -9,13 +9,16 @@ export default function BestSelling() {
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
             <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/2 flex justify-center">
-                <figure className="products-thumb">
+              {/* Container imagine cu poziționare relativă */}
+              <div className="md:w-1/2 flex justify-center relative">
+                <figure className="products-thumb relative">
                   <img
                     src="https://img.wattpad.com/cover/396182664-256-k26147.jpg"
                     alt="The Quiet Fight For Love"
-                    className="w-[280px] md:w-[300px] rounded-lg shadow-md"
+                    className="w-[280px] md:w-[300px] object-cover rounded-tr-3xl rounded-br-3xl shadow-md"
                   />
+                  {/* Dreptunghi semi-transparent cu blur, puțin distanțat de marginea imaginii */}
+                  <div className="absolute top-0 bottom-0 left-2 w-6 bg-black/30 blur-sm pointer-events-none rounded-none" />
                 </figure>
               </div>
 
