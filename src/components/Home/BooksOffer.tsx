@@ -1,13 +1,42 @@
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BookCard from "../BookCard";
-import { UseBooks } from "../../Constants/UseBooks";
+import { useBooks } from "../../hooks/useBooks";
 import type { Book } from "../../Models/Book";
 
+function getRandomBooks(books: Book[], count: number) {
+  const booksCopy = [...books];
+  const randomBooks: Book[] = [];
+
+  for (let i = 0; i < count; i++) {
+    if (booksCopy.length === 0) break;
+    const randomIndex = Math.floor(Math.random() * booksCopy.length);
+    randomBooks.push(booksCopy[randomIndex]);
+    booksCopy.splice(randomIndex, 1);
+  }
+
+  return randomBooks;
+}
+
 export default function BooksOffer() {
-  const { books, loading, error } = UseBooks();
-  const discountedBooks = books.filter((book: Book) => book.oldPrice);
+  const { books, loading, error } = useBooks();
+
+  if (loading) return <p>Se încarcă ofertele...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Asigură-te că books e array valid
+  const validBooks = Array.isArray(books) ? books : [];
+
+  // Filtrăm doar cărțile cu oldPrice (discount), în stoc
+  const discountedInStockBooks = validBooks.filter(
+    (book: Book) =>
+      book.oldPrice !== undefined && book.oldPrice !== null && book.inStock
+  );
+
+  // Luăm random 15 cărți din cele filtrate
+  const displayedBooks = getRandomBooks(discountedInStockBooks, 15);
 
   const settings = {
     dots: true,
@@ -18,20 +47,31 @@ export default function BooksOffer() {
     arrows: false,
     appendDots: (dots: React.ReactNode) => (
       <div className="mt-4 sm:mt-6 lg:mt-10">
-        <ul className="flex justify-center gap-2">{dots}</ul>
+        <ul className="flex justify-center gap-2">
+          {dots && React.Children.toArray(dots).slice(0, 4)}
+        </ul>
       </div>
     ),
     customPaging: () => (
       <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50"></div>
     ),
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          dots: true,
+        },
+      },
     ],
   };
-
-  if (loading) return <p>Se încarcă ofertele...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
     <section className="py-20 bg-[#fdfcf7] px-4 sm:px-6 lg:px-8">
@@ -41,7 +81,7 @@ export default function BooksOffer() {
         </h2>
         <div className="relative">
           <Slider {...settings}>
-            {discountedBooks.map((book: Book) => (
+            {displayedBooks.map((book: Book) => (
               <div key={book.id} className="px-2">
                 <BookCard {...book} />
               </div>

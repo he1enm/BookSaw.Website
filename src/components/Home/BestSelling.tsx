@@ -1,5 +1,3 @@
-import bestSellingImg from "../../assets/img/single-image.jpg";
-
 export default function BestSelling() {
   return (
     <section
@@ -14,8 +12,8 @@ export default function BestSelling() {
               <div className="md:w-1/2 flex justify-center">
                 <figure className="products-thumb">
                   <img
-                    src={bestSellingImg}
-                    alt="Birds Gonna Be Happy"
+                    src="https://img.wattpad.com/cover/396182664-256-k26147.jpg"
+                    alt="The Quiet Fight For Love"
                     className="w-[280px] md:w-[300px] rounded-lg shadow-md"
                   />
                 </figure>
@@ -29,21 +27,25 @@ export default function BestSelling() {
 
                   <div className="products-content space-y-6">
                     <div className="text-[#777] font-medium">
-                      By Timbur Hood
+                      By Jordan Gray
                     </div>
                     <h3 className="text-2xl font-semibold text-[#333]">
-                      Birds gonna be happy
+                      The Quiet Fight For Love
                     </h3>
                     <p className="text-[#555] leading-relaxed">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed eu feugiat amet, libero ipsum enim pharetra hac.
+                      'The Quiet Fight For Love' is an unforgettable exploration
+                      of identity, memory, and the silent battles we fight
+                      within ourselves.
                     </p>
-                    <div className="text-[#b99272] text-2xl font-semibold">
-                      $ 45.00
+                    <div className="text-[#b99272] text-2xl font-semibold flex items-center gap-2">
+                      <span>$17.67</span>
+                      <span className="line-through text-sm text-gray-400">
+                        $28.81
+                      </span>
                     </div>
                     <div className="btn-wrap pt-2">
                       <a
-                        href="#"
+                        href="/book/227a46df-8e1e-45ee-b421-bc507350bdb6"
                         className="text-[#000] font-semibold inline-flex items-center gap-2 hover:text-[#b99272] transition"
                       >
                         shop it now <span className="text-xl">→</span>

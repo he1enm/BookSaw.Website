@@ -1,11 +1,11 @@
 import { useState } from "react";
 import BookCard from "../BookCard";
 import Filtres from "./Filters";
-import { UseBooks } from "../../Constants/UseBooks";
+import { useBooks } from "../../hooks/useBooks";
 import type { Book } from "../../Models/Book";
 
 export default function ProductList() {
-  const { books, loading, error } = UseBooks();
+  const { books, loading, error } = useBooks();
 
   const [category, setCategory] = useState("All");
   const [minPrice, setMinPrice] = useState("");

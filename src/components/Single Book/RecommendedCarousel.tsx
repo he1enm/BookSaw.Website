@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BookCard from "../BookCard";
-import { UseBooks } from "../../Constants/UseBooks";
+import { useBooks } from "../../hooks/useBooks";
 import type { Book } from "../../Models/Book";
 
 interface RecommendedCarouselProps {
@@ -12,7 +12,7 @@ interface RecommendedCarouselProps {
 export default function RecommendedCarousel({
   categories,
 }: RecommendedCarouselProps) {
-  const { books, loading, error } = UseBooks();
+  const { books, loading, error } = useBooks();
 
   const recommendedBooks = books.filter((book: Book) =>
     book.categories.some((cat: string) => categories.includes(cat))

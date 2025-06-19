@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import BookCard from "../BookCard";
-import { UseBooks } from "../../Constants/UseBooks";
+import { useBooks } from "../../hooks/useBooks";
 import type { Book } from "../../Models/Book";
 
 function getRandomBooks(books: Book[], count: number) {
@@ -18,7 +18,7 @@ function getRandomBooks(books: Book[], count: number) {
 }
 
 export default function FeaturedBooks() {
-  const { books, loading, error } = UseBooks();
+  const { books, loading, error } = useBooks();
 
   if (loading) return <p>Se încarcă...</p>;
   if (error) return <p>{error}</p>;

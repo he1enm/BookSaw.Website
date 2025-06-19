@@ -2,12 +2,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BookDetails from "../components/Single Book/BookDetails";
 import RecommendedCarousel from "../components/Single Book/RecommendedCarousel";
-import { UseBooks } from "../Constants/UseBooks";
+import { useBooks } from "../hooks/useBooks";
 import type { Book } from "../Models/Book";
 
 export default function SingleBook() {
   const { bookId } = useParams<{ bookId: string }>();
-  const { books, loading, error } = UseBooks();
+  const { books, loading, error } = useBooks();
   const [book, setBook] = useState<Book | null>(null);
 
   useEffect(() => {

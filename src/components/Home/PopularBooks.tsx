@@ -1,25 +1,27 @@
 import { useState } from "react";
 import BookCard from "../BookCard";
-import { UseBooks } from "../../Constants/UseBooks";
+import { useBooks } from "../../hooks/useBooks";
 import type { Book } from "../../Models/Book";
 
 const categories = [
   "All Genre",
-  "Business",
-  "Technology",
-  "Romantic",
-  "Adventure",
-  "Fictional",
+  "Romance",
+  "Contemporary",
+  "Young Adult",
+  "Poetry",
+  "Fantasy",
 ];
 
 export default function PopularBooks() {
-  const { books, loading, error } = UseBooks();
+  const { books, loading, error } = useBooks();
   const [activeCategory, setActiveCategory] = useState("All Genre");
 
   if (loading) return <p>Se încarcă...</p>;
   if (error) return <p>{error}</p>;
 
-  const first8Books = books.slice(0, 8);
+  const validBooks = Array.isArray(books) ? books : [];
+
+  const first8Books = validBooks.slice(0, 8);
 
   const filteredBooks =
     activeCategory === "All Genre"
@@ -27,6 +29,22 @@ export default function PopularBooks() {
       : first8Books.filter((book: Book) =>
           book.categories.includes(activeCategory)
         );
+
+  if (!Array.isArray(filteredBooks) || filteredBooks.length === 0) {
+    return (
+      <section className="bg-[#f3f2ec] py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-[#b99272] uppercase tracking-widest text-sm">
+            Some quality items
+          </p>
+          <h2 className="text-5xl font-semibold text-[#3a3a3a] mt-2 mb-8">
+            Popular Books
+          </h2>
+          <p>Nu există cărți în această categorie.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-[#f3f2ec] py-20 px-4 sm:px-6 lg:px-8">
