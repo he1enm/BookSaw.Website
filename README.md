@@ -1,54 +1,63 @@
-# React + TypeScript + Vite
+# 📚 BookSaw
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**BookSaw** is a modern online bookstore built with React, TypeScript, and Tailwind CSS. It provides a clean and intuitive interface for browsing, filtering, and discovering books, with full responsiveness and smooth UI interactions.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- ✅ Display books from backend API (with image, title, price)
+- ✅ Individual book pages with details
+- ✅ Recommended books carousel (based on categories)
+- ✅ Special sections: Best Selling Book, Books on Offer
+- ✅ Advanced filtering:
+  - by category (multi-select)
+  - by price (min/max)
+  - by sorting (title, price)
+- ✅ Pagination for book list
+- ✅ Fully responsive layout (mobile, tablet, desktop)
+- ✅ Hover animations and transitions
+- ✅ Interactive buttons and icons
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🛠️ Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Router](https://reactrouter.com/)
+- [React Slick (carousel)](https://react-slick.neostack.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- Axios for HTTP requests
+- Backend API (`http://localhost:5234/books`)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🧱 Key Components
+
+- `BookCard` – Displays a single book (image, title, price)
+- `ProductList` – Grid of books with pagination and filters
+- `Filters` – Filtering by category, price, and sorting
+- `RecommendedCarousel` – Suggests books based on category
+- `BooksOffer` – Displays discounted books in a carousel
+- `BestSelling` – Highlights the top-selling book
+
+---
+
+## 🧪 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/booksaw.git
+   cd booksaw
+2. Install dependencies:
+   ```bash
+   npm install
+3. Start the development server:
+   ```bash
+   npm run dev
+4. Make sure your backend is running at http://localhost:5234.
+
+
+
