@@ -5,8 +5,9 @@ import {
   FaBehance,
   FaUser,
   FaClipboard,
-  FaSearch,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const TopNavbar = () => {
   return (
@@ -16,56 +17,58 @@ const TopNavbar = () => {
           <div className="mb-2 md:mb-0">
             <ul className="flex space-x-4">
               <li>
-                <a href="#" className="cursor-pointer text-[#555555]">
+                <Link
+                  to="https://www.facebook.com/"
+                  className="cursor-pointer text-[#555555]"
+                >
                   <FaFacebookF />
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="cursor-pointer text-[#555555]">
+                <Link
+                  to="https://twitter.com/"
+                  className="cursor-pointer text-[#555555]"
+                >
                   <FaTwitter />
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="cursor-pointer text-[#555555]">
+                <Link
+                  to="https://www.youtube.com/"
+                  className="cursor-pointer text-[#555555]"
+                >
                   <FaYoutube />
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="cursor-pointer text-[#555555]">
+                <Link
+                  to="https://www.behance.net/"
+                  className="cursor-pointer text-[#555555]"
+                >
                   <FaBehance />
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           <div className="flex items-center space-x-6">
-            <a
-              href="#"
+            <Link
+              to="/notfound"
               className="flex items-center cursor-pointer text-[#555555]"
             >
               <FaUser className="mr-1" />
               <span>Account</span>
-            </a>
-            <a
-              href="#"
+            </Link>
+
+            <Link
+              to="/notfound"
               className="flex items-center cursor-pointer text-[#555555]"
             >
               <FaClipboard className="mr-1" />
               <span>Cart: (0 $)</span>
-            </a>
+            </Link>
 
-            <div className="relative">
-              <button className="cursor-pointer text-[#555555] focus:outline-none">
-                <FaSearch />
-              </button>
-              <form className="absolute top-8 right-0 bg-white shadow-md p-2 hidden">
-                <input
-                  type="search"
-                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none text-[#555555] placeholder-[#999999]"
-                  placeholder="Search"
-                />
-              </form>
-            </div>
+            <SearchBar />
           </div>
         </div>
       </div>

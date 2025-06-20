@@ -1,12 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img1 from "../assets/img/main-logo.png";
 
 const MainNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const onSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchTerm.trim() === "") return;
+    navigate(`/shop?search=${encodeURIComponent(searchTerm.trim())}`);
+    setIsOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#f3f2ec] border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-1 bg-[#f3f2ec] border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4 py-6 flex items-center justify-between">
         <div className="flex-shrink-0">
           <Link to="/">
@@ -33,6 +42,7 @@ const MainNavbar = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-[#555555] focus:outline-none"
+            aria-label="Toggle menu"
           >
             <svg
               className="w-6 h-6"
@@ -76,11 +86,15 @@ const MainNavbar = () => {
             Contact
           </Link>
 
-          <input
-            type="search"
-            placeholder="Search..."
-            className="mt-2 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-[#999]"
-          />
+          <form onSubmit={onSearchSubmit}>
+            <input
+              type="search"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="mt-2 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-[#999]"
+            />
+          </form>
         </div>
       )}
     </header>

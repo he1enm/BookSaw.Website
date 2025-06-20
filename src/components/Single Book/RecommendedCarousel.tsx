@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,14 +10,50 @@ interface RecommendedCarouselProps {
   categories: string[];
 }
 
+// Funcție auxiliară pentru a selecta 8 cărți random
+function getRandomBooks(books: Book[], count: number): Book[] {
+  const shuffled = [...books];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, count);
+}
+
 export default function RecommendedCarousel({
   categories,
 }: RecommendedCarouselProps) {
   const { books, loading, error } = useBooks();
 
-  const recommendedBooks = books.filter((book: Book) =>
-    book.categories.some((cat: string) => categories.includes(cat))
-  );
+  // Selectăm 8 cărți recomandate, în stoc, și randomizate
+  const recommendedBooks = useMemo(() => {
+    if (!Array.isArray(books)) return [];
+
+    const filtered = books.filter(
+      (book) =>
+        book.inStock &&
+        Array.isArray(book.categories) &&
+        book.categories.some((cat) => categories.includes(cat))
+    );
+
+    return getRandomBooks(filtered, 8);
+  }, [books, categories]);
+
+  if (loading) return <p>Se încarcă recomandările...</p>;
+  if (error) return <p>{error}</p>;
+
+  if (recommendedBooks.length === 0) {
+    return (
+      <section className="py-20 bg-[#fdfcf7] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-[#3a3a3a] mt-2 mb-8">
+            Recommended Books
+          </h2>
+          <p className="text-gray-500">No recommendations available.</p>
+        </div>
+      </section>
+    );
+  }
 
   const settings = {
     dots: true,
@@ -26,52 +63,41 @@ export default function RecommendedCarousel({
     slidesToScroll: 1,
     arrows: false,
     appendDots: (dots: React.ReactNode) => (
-      <div style={{ marginTop: "24px" }}>
-        <ul className="flex justify-center gap-2">{dots}</ul>
+      <div className="mt-10 sm:mt-14 lg:mt-20">
+        <ul className="flex justify-center gap-2">
+          {dots && React.Children.toArray(dots).slice(0, 5)}
+        </ul>
       </div>
     ),
     customPaging: () => (
-      <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50"></div>
+      <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50 mt-6"></div>
     ),
     responsive: [
       {
-        breakpoint: 1280,
-        settings: { slidesToShow: Math.min(3, recommendedBooks.length) },
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: Math.min(2, recommendedBooks.length),
+        },
       },
       {
-        breakpoint: 1024,
-        settings: { slidesToShow: Math.min(2, recommendedBooks.length) },
+        breakpoint: 640,
+        settings: {
+          slidesToShow: Math.min(2, recommendedBooks.length),
+        },
       },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
     ],
   };
 
-  if (loading) return <p>Se încarcă recomandările...</p>;
-  if (error) return <p>{error}</p>;
-
-  if (recommendedBooks.length === 0) {
-    return (
-      <section className="py-20 bg-[#fdfcf7] px-4 sm:px-10">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-serif font-semibold mb-10">
-            Recommended Books
-          </h2>
-          <p className="text-gray-500">No recommendations available.</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-20 bg-[#fdfcf7] px-4 sm:px-10">
+    <section className="py-20 bg-[#fdfcf7] px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-3xl font-serif font-semibold mb-10">
+        <h2 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-[#3a3a3a] mt-2 mb-8">
           Recommended Books
         </h2>
         <div className="relative">
           <Slider {...settings}>
-            {recommendedBooks.map((book: Book) => (
-              <div key={book.id} className="px-3">
+            {recommendedBooks.map((book) => (
+              <div key={book.id} className="px-2">
                 <BookCard {...book} />
               </div>
             ))}

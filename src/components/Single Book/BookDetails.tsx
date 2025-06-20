@@ -24,54 +24,60 @@ export default function BookDetails({
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-lg">
-      <div className="bg-[#efeee8] p-6 flex items-center justify-center rounded-lg shadow-md max-w-md mx-auto w-full">
+    <div className="max-w-7xl mx-auto px-4 py-8 md:py-12 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 bg-white rounded-lg">
+      <div className="bg-[#efeee8] p-4 md:p-6 flex items-center justify-center rounded-lg shadow-md max-w-md mx-auto w-full">
         <img
           src={image}
           alt={title}
-          className="max-h-[400px] w-full object-contain"
+          className="max-h-[300px] md:max-h-[400px] w-full object-contain"
           style={{ userSelect: "none" }}
         />
       </div>
 
-      <div className="flex flex-col justify-start space-y-5">
+      <div className="flex flex-col justify-start space-y-4 md:space-y-5">
         {category && (
-          <p className="text-sm text-[#b99272] uppercase tracking-wider font-semibold">
-            {category}
+          <p className="text-xs md:text-sm text-[#b99272] uppercase tracking-wider font-semibold">
+            {category.join(", ")}
           </p>
         )}
 
-        <h1 className="text-4xl font-extrabold text-[#3a3a3a]">{title}</h1>
-        <p className="text-gray-600 text-lg italic">by {author}</p>
+        <h1 className="text-2xl md:text-4xl font-extrabold text-[#3a3a3a]">
+          {title}
+        </h1>
+        <p className="text-gray-600 text-base md:text-lg italic">by {author}</p>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6">
           {oldPrice && (
-            <span className="text-lg text-gray-400 line-through">
+            <span className="text-sm md:text-lg text-gray-400 line-through">
               {oldPrice} $
             </span>
           )}
-          <span className="text-3xl text-[#b99272] font-bold">{price} $</span>
+          <span className="text-xl md:text-3xl text-[#b99272] font-bold">
+            {price} $
+          </span>
         </div>
 
-        <p className="text-gray-700 leading-relaxed text-lg">{description}</p>
+        <p className="text-gray-700 leading-relaxed text-sm md:text-lg">
+          {description}
+        </p>
 
         <div>
           {inStock ? (
-            <span className="inline-block text-sm text-green-700 bg-green-100 px-3 py-1 rounded-full font-medium">
+            <span className="inline-block text-xs md:text-sm text-green-700 bg-green-100 px-3 py-1 rounded-full font-medium">
               In stock
             </span>
           ) : (
-            <span className="inline-block text-sm text-red-700 bg-red-100 px-3 py-1 rounded-full font-medium">
+            <span className="inline-block text-xs md:text-sm text-red-700 bg-red-100 px-3 py-1 rounded-full font-medium">
               Out of stock
             </span>
           )}
         </div>
 
-        <div className="mt-4 flex items-center gap-6">
+        <div className="mt-4 flex items-center gap-4 md:gap-6">
           <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden select-none shadow-sm">
             <button
               onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-              className="px-4 py-2 text-2xl font-semibold text-[#b99272] hover:bg-[#b99272] hover:text-white transition"
+              className="px-3 md:px-4 py-1 md:py-2 text-xl md:text-2xl font-semibold text-[#b99272] hover:bg-[#b99272] hover:text-white transition"
               aria-label="Decrease quantity"
               type="button"
             >
@@ -85,7 +91,7 @@ export default function BookDetails({
               onChange={(e) =>
                 setQuantity(Math.max(1, parseInt(e.target.value) || 1))
               }
-              className="w-16 text-center text-xl font-semibold text-gray-700 border-x border-gray-300 outline-none"
+              className="w-12 md:w-16 text-center text-lg md:text-xl font-semibold text-gray-700 border-x border-gray-300 outline-none"
               style={{
                 MozAppearance: "textfield",
                 WebkitAppearance: "none",
@@ -96,7 +102,7 @@ export default function BookDetails({
 
             <button
               onClick={() => setQuantity((prev) => prev + 1)}
-              className="px-4 py-2 text-2xl font-semibold text-[#b99272] hover:bg-[#b99272] hover:text-white transition"
+              className="px-3 md:px-4 py-1 md:py-2 text-xl md:text-2xl font-semibold text-[#b99272] hover:bg-[#b99272] hover:text-white transition"
               aria-label="Increase quantity"
               type="button"
             >
@@ -106,7 +112,7 @@ export default function BookDetails({
 
           <button
             disabled={!inStock}
-            className={`px-8 py-3 rounded-lg font-semibold transition-transform ${
+            className={`px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold transition-transform ${
               inStock
                 ? "bg-gradient-to-r from-[#b99272] to-[#8c6b4a] text-white hover:from-[#8c6b4a] hover:to-[#b99272] active:scale-95 shadow-lg"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"

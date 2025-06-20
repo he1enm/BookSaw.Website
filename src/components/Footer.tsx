@@ -1,5 +1,6 @@
 import img1 from "../assets/img/main-logo.png";
 import { FaFacebookF, FaTwitter, FaYoutube, FaBehance } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -14,19 +15,19 @@ const Footer = () => {
             <h5 className="font-semibold mb-4 uppercase">About Us</h5>
             <ul className="space-y-2">
               <li>
-                <a href="#">Vision</a>
+                <Link to="/notfound">Vision</Link>
               </li>
               <li>
-                <a href="#">Articles</a>
+                <Link to="/notfound">Articles</Link>
               </li>
               <li>
-                <a href="#">Careers</a>
+                <Link to="/notfound">Careers</Link>
               </li>
               <li>
-                <a href="#">Service Terms</a>
+                <Link to="/notfound">Service Terms</Link>
               </li>
               <li>
-                <a href="#">Donate</a>
+                <Link to="/notfound">Donate</Link>
               </li>
             </ul>
           </div>
@@ -35,19 +36,19 @@ const Footer = () => {
             <h5 className="font-semibold mb-4 uppercase">Discover</h5>
             <ul className="space-y-2">
               <li>
-                <a href="#">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a href="#">Books</a>
+                <Link to="/shop">Books</Link>
               </li>
               <li>
-                <a href="#">Authors</a>
+                <Link to="/notfound">Authors</Link>
               </li>
               <li>
-                <a href="#">Subjects</a>
+                <Link to="/notfound">Subjects</Link>
               </li>
               <li>
-                <a href="#">Advanced Search</a>
+                <Link to="/notfound">Advanced Search</Link>
               </li>
             </ul>
           </div>
@@ -56,16 +57,16 @@ const Footer = () => {
             <h5 className="font-semibold mb-4 uppercase">My Account</h5>
             <ul className="space-y-2">
               <li>
-                <a href="#">Sign In</a>
+                <Link to="/notfound">Sign In</Link>
               </li>
               <li>
-                <a href="#">View Cart</a>
+                <Link to="/notfound">View Cart</Link>
               </li>
               <li>
-                <a href="#">My Wishlist</a>
+                <Link to="/notfound">My Wishlist</Link>
               </li>
               <li>
-                <a href="#">Track My Order</a>
+                <Link to="/notfound">Track My Order</Link>
               </li>
             </ul>
           </div>
@@ -74,16 +75,16 @@ const Footer = () => {
             <h5 className="font-semibold mb-4 uppercase">Help</h5>
             <ul className="space-y-2">
               <li>
-                <a href="#">Help Center</a>
+                <Link to="/notfound">Help Center</Link>
               </li>
               <li>
-                <a href="#">Report a Problem</a>
+                <Link to="/notfound">Report a Problem</Link>
               </li>
               <li>
-                <a href="#">Suggesting Edits</a>
+                <Link to="/notfound">Suggesting Edits</Link>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <Link to="/contact">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -102,16 +103,16 @@ const Footer = () => {
           </p>
 
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#">
+            <a href="https://www.facebook.com/">
               <FaFacebookF />
             </a>
-            <a href="#">
+            <a href="https://twitter.com/">
               <FaTwitter />
             </a>
-            <a href="#">
+            <a href="https://www.youtube.com/">
               <FaYoutube />
             </a>
-            <a href="#">
+            <a href="https://www.behance.net/">
               <FaBehance />
             </a>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -22,21 +22,20 @@ function getRandomBooks(books: Book[], count: number) {
 
 export default function BooksOffer() {
   const { books, loading, error } = useBooks();
+  const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
 
-  if (loading) return <p>Se încarcă ofertele...</p>;
-  if (error) return <p>{error}</p>;
-
-  // Asigură-te că books e array valid
-  const validBooks = Array.isArray(books) ? books : [];
-
-  // Filtrăm doar cărțile cu oldPrice (discount), în stoc
-  const discountedInStockBooks = validBooks.filter(
-    (book: Book) =>
-      book.oldPrice !== undefined && book.oldPrice !== null && book.inStock
-  );
-
-  // Luăm random 15 cărți din cele filtrate
-  const displayedBooks = getRandomBooks(discountedInStockBooks, 15);
+  useEffect(() => {
+    if (Array.isArray(books)) {
+      const filtered = books.filter(
+        (book) =>
+          typeof book.oldPrice === "number" &&
+          typeof book.price === "number" &&
+          book.inStock
+      );
+      setDisplayedBooks(getRandomBooks(filtered, 8));
+    }
+  }, [books]);
 
   const settings = {
     dots: true,
@@ -45,33 +44,37 @@ export default function BooksOffer() {
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
+    onSwipe: () => setIsDragging(true),
+    afterChange: () => setTimeout(() => setIsDragging(false), 10),
     appendDots: (dots: React.ReactNode) => (
       <div className="mt-4 sm:mt-6 lg:mt-10">
-        <ul className="flex justify-center gap-2">
-          {dots && React.Children.toArray(dots).slice(0, 4)}
+        <ul className="flex justify-center gap-2 ">
+          {dots && React.Children.toArray(dots).slice(0, 5)}
         </ul>
       </div>
     ),
     customPaging: () => (
-      <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50"></div>
+      <div className="w-2 h-2 bg-[#b99272] rounded-full opacity-50 mt-5"></div>
     ),
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          dots: true,
         },
       },
       {
         breakpoint: 640,
         settings: {
           slidesToShow: 2,
-          dots: true,
         },
       },
     ],
   };
+
+  if (loading) return <p>Se încarcă ofertele...</p>;
+  if (error) return <p>{error}</p>;
+  if (displayedBooks.length === 0) return <p>Nu sunt cărți în ofertă.</p>;
 
   return (
     <section className="py-20 bg-[#fdfcf7] px-4 sm:px-6 lg:px-8">
@@ -81,9 +84,9 @@ export default function BooksOffer() {
         </h2>
         <div className="relative">
           <Slider {...settings}>
-            {displayedBooks.map((book: Book) => (
+            {displayedBooks.map((book) => (
               <div key={book.id} className="px-2">
-                <BookCard {...book} />
+                <BookCard {...book} isDragging={isDragging} />
               </div>
             ))}
           </Slider>

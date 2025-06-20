@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { HiChevronDown } from "react-icons/hi";
+import { useCategories } from "../../hooks/useCategories";
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+}
 
 type Props = {
-  category: string[]; // listă de categorii selectate
+  category: string[];
   setCategory: Dispatch<SetStateAction<string[]>>;
   minPrice: string;
   setMinPrice: Dispatch<SetStateAction<string>>;
@@ -12,21 +26,6 @@ type Props = {
   sortBy: string;
   setSortBy: Dispatch<SetStateAction<string>>;
 };
-
-const categoriesList = [
-  "Drama",
-  "Contemporary",
-  "Poetry",
-  "Young Adult",
-  "Romance",
-  "Fantasy",
-  "Psychological",
-  "Adventure",
-  "Mystery",
-  "Thriller",
-  "Psychological Thriller",
-  "Fiction",
-];
 
 export default function Filtres({
   category,
@@ -38,98 +37,92 @@ export default function Filtres({
   sortBy,
   setSortBy,
 }: Props) {
-  const [showFilters, setShowFilters] = useState(false);
+  const { categories, loading, error } = useCategories();
 
-  const toggleCategory = (cat: string) => {
-    if (cat === "All") {
-      setCategory([]);
-      return;
-    }
-    if (category.includes(cat)) {
-      setCategory(category.filter((c) => c !== cat));
-    } else {
-      setCategory([...category, cat]);
-    }
-  };
+  const width = useWindowWidth();
 
+  const [showCategories, setShowCategories] = useState(false);
   const isAllSelected = category.length === 0;
 
-  return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-[#3a3a3a]">Filters</h2>
+  const toggleCategory = (cat: string) => {
+    if (cat === "All") return setCategory([]);
+    setCategory(
+      category.includes(cat)
+        ? category.filter((c) => c !== cat)
+        : [...category, cat]
+    );
+  };
 
+  if (loading) return <p>Loading categories...</p>;
+  if (error) return <p className="text-red-600">{error}</p>;
+
+  return (
+    <div className="container mx-auto px-4 py-6 space-y-6">
+      <div className="lg:hidden flex justify-center">
         <button
-          className="lg:hidden p-2 text-[#3a3a3a]"
-          onClick={() => setShowFilters(!showFilters)}
-          aria-label={showFilters ? "Hide Filters" : "Show Filters"}
-          style={{ transform: showFilters ? "rotate(180deg)" : "rotate(0deg)" }}
+          onClick={() => setShowCategories(!showCategories)}
+          className="text-sm px-4 py-2 rounded bg-[#b99272] text-white font-medium"
         >
-          <HiChevronDown size={24} />
+          {showCategories ? "Hide Categories" : "Show Categories"}
         </button>
       </div>
 
-      {(showFilters ||
-        (typeof window !== "undefined" && window.innerWidth >= 1024)) && (
-        <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
-          <div className="flex flex-wrap gap-4 max-w-full">
+      {(showCategories || width >= 1024) && (
+        <div className="flex flex-wrap justify-center gap-3">
+          <button
+            onClick={() => setCategory([])}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+              isAllSelected
+                ? "bg-[#b99272] text-white"
+                : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+            }`}
+          >
+            All
+          </button>
+          {categories.map((cat) => (
             <button
-              onClick={() => setCategory([])}
-              className={`px-5 py-2 rounded-full border text-sm font-semibold transition-colors duration-200 ${
-                isAllSelected
-                  ? "bg-[#b99272] text-white border-[#b99272]"
-                  : "bg-white text-[#3a3a3a] border-gray-300 hover:bg-gray-100"
+              key={cat.id}
+              onClick={() => toggleCategory(cat.name)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                category.includes(cat.name)
+                  ? "bg-[#b99272] text-white"
+                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
               }`}
             >
-              All
+              {cat.name}
             </button>
-
-            {categoriesList.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => toggleCategory(cat)}
-                className={`px-5 py-2 rounded-full border text-sm font-semibold transition-colors duration-200 ${
-                  category.includes(cat)
-                    ? "bg-[#b99272] text-white border-[#b99272]"
-                    : "bg-white text-[#3a3a3a] border-gray-300 hover:bg-gray-100"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-4 items-center mt-4 lg:mt-0">
-            <input
-              type="number"
-              placeholder="Min"
-              className="border px-4 py-2 rounded w-[110px] text-sm"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-            />
-            <span className="text-[#3a3a3a] text-lg font-semibold">–</span>
-            <input
-              type="number"
-              placeholder="Max"
-              className="border px-4 py-2 rounded w-[110px] text-sm"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-            />
-
-            <select
-              className="border px-4 py-2 rounded text-[#3a3a3a] min-w-[160px] text-sm"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="">Sort by</option>
-              <option value="price-asc">Price: Low → High</option>
-              <option value="price-desc">Price: High → Low</option>
-              <option value="title-asc">Title: A → Z</option>
-              <option value="title-desc">Title: Z → A</option>
-            </select>
-          </div>
+          ))}
         </div>
       )}
+
+      <div className="flex flex-wrap justify-end gap-4 items-center">
+        <input
+          type="number"
+          placeholder="Min"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          className="w-[100px] px-3 py-2 rounded border text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#b99272]"
+        />
+        <span className="text-[#3a3a3a] font-medium">–</span>
+        <input
+          type="number"
+          placeholder="Max"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          className="w-[100px] px-3 py-2 rounded border text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#b99272]"
+        />
+        <select
+          className="border px-4 py-2 rounded text-[#3a3a3a] min-w-[160px] text-sm"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="">Sort by</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="title-asc">Title: A → Z</option>
+          <option value="title-desc">Title: Z → A</option>
+        </select>
+      </div>
     </div>
   );
 }
