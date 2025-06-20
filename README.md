@@ -49,7 +49,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/booksaw.git
+   git clone https://github.com/he1enm/BookSaw.Website
    cd booksaw
 2. Install dependencies:
    ```bash
